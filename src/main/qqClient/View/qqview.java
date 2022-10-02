@@ -62,6 +62,8 @@ public class qqview {
                                     break;
                                 case "9" :
                                     System.out.println("退出系统");
+                                    //调用一个方法，给服务器发送退出系统信息
+                                    service.logout();
                                     loop = false;
                                     break;
                             }
