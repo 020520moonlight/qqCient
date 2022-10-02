@@ -33,13 +33,13 @@ public class ClientConnectServerThread extends Thread{
                     //取出在线列表，返回
                     //规定，如果在线用户列表以 xxx xxx xxx
                     String[] onlineUser = message.getContent().split(" ");
-                    System.out.println("当前用户列表");
+                    System.out.println("\n------当前用户列表------");
                     for (int i=0;i<onlineUser.length;i++){
                         System.out.println("用户"+onlineUser[i]);
                     }
-                    
-                }else {
 
+                }else {
+                    System.out.println("其他类型的message暂不处理");
                 }
             } catch (IOException | ClassNotFoundException e) {
                 throw new RuntimeException(e);

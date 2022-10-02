@@ -47,8 +47,9 @@ public class qqview {
                             key = scanner.next();
                             switch (key){
                                 case "1":
-                                    //System.out.println("显示在线用户列表");
+                                    System.out.println("显示在线用户列表");
                                     //这里写方法
+                                    service.onlineFriendList();
                                     break;
                                 case "2":
                                     System.out.println("群发消息");

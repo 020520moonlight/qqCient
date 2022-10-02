@@ -54,16 +54,17 @@ public class UserClientService {
         return result;
     }
 
-    //向服务器端请求在线用户列表
+    //向服务器端请求在线用户列表，UserClientService类
     public void onlineFriendList() throws IOException {
         Message message = new Message();
         message.setMessageType(MessqgeType.MESSAGE_GET_ONLINEFRIEND);
+        //设置发送者(debug)
+        message.setSender(user.getUserId());
         //发送给服务器，得到当前线程的Socket 对应的objectPutputStream
         //从管理线程的类，传入用户id得到用户id 对应的线程，获得县城里面呢的socket对象，再获得socket对象里面的输出流
         ObjectOutputStream oos
                 = new ObjectOutputStream(MangerClientConnectServerThread.getCliientConnectServerThread(user.getUserId()).getSocket().getOutputStream());
         oos.writeObject(message);//发送信息向服务端获得在线用户列表
-
 
 
     }
