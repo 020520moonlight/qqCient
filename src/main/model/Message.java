@@ -1,13 +1,12 @@
 package main.model;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * 封装网络传输数据
  */
 public class Message implements Serializable {
-    private static final long serializableUUID = 2l;
+    private static final long serialVersionUID = 1L;
     private String sender;//发送者
     private String reciever;
     private String content;

@@ -28,14 +28,14 @@ public class qqview {
             switch (key){
                 case "1":
                     System.out.println("登陆系统");
-                    System.out.print("请输入用户");
+                    System.out.print("请输入用户名");
                     String userid = scanner.next();
                     System.out.print("请输入密码");
                     String pwd = scanner.next();
                     //服务端验证游湖是否合法
                     //先省略这里编写一个服务类进行登陆验证
-                    if ( service.checkUser(userid,pwd)){
-                        System.out.println("----------欢迎"+userid+"登陆到二级菜单----------");
+                    if (service.checkUser(userid,pwd)){
+                        System.out.println("----------欢迎"+userid+"登陆成功----------");
                         while (loop){
                             System.out.println("\n--------------网络通信二级菜单(用户"+userid+")------");
                             System.out.println("\t\t 1 显示在线用户列表");
@@ -47,7 +47,8 @@ public class qqview {
                             key = scanner.next();
                             switch (key){
                                 case "1":
-                                    System.out.println("显示在线用户列表");
+                                    //System.out.println("显示在线用户列表");
+                                    //这里写方法
                                     break;
                                 case "2":
                                     System.out.println("群发消息");
