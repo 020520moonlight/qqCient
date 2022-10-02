@@ -4,6 +4,7 @@ import main.model.Message;
 import main.model.MessqgeType;
 
 import java.io.EOFException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
@@ -44,6 +45,19 @@ public class ClientConnectServerThread extends Thread{
                     //接收到普通的聊天消息，把服务器端转发的消息显示到控制端
                     System.out.println("\n"+message.getSender()+"对"+
                             message.getReciever()+"说"+message.getContent());
+                }else if(message.getMessageType().equals(MessqgeType.MESSAGE_CLIENT_TOALL)){
+                    //显示在客户端的控制台
+                    System.out.println("\n"+message.getSender()+"对大家伙说"+message.getContent());
+                }else if (message.getMessageType().equals(MessqgeType.MESSAGE_FILE_MES)){
+                    //如果是文件消息
+                    System.out.println("\n"+message.getSender()+"给"+ message.getReciever()+
+                            "发送了"+message.getSrc()+"文件我的电脑到"+message.getDest());
+                    //取出messag的bytes数组，输出流到磁盘上
+                    byte[] bytes = message.getFileByte();
+                    FileOutputStream fileOutputStream = new FileOutputStream(message.getDest());
+                    fileOutputStream.write(bytes);
+                    fileOutputStream.close();
+                    System.out.println("保存成功");
                 }
                 else {
                     System.out.println("其他类型的message暂不处理");
@@ -51,7 +65,6 @@ public class ClientConnectServerThread extends Thread{
             }catch (EOFException eofException){
                 break;
             } catch (IOException | ClassNotFoundException e) {
-
                 e.printStackTrace();
             }
         }

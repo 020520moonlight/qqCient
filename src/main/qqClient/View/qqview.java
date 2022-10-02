@@ -1,5 +1,6 @@
 package main.qqClient.View;
 
+import main.qq.net.Service.FileClientService;
 import main.qq.net.Service.MessageClientService;
 import main.qq.net.Service.UserClientService;
 
@@ -13,6 +14,8 @@ public class qqview {
     private UserClientService service = new UserClientService();
     //聊天方法
     private MessageClientService messageClientService = new MessageClientService();
+
+    private FileClientService fileClientService = new FileClientService();
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         new qqview().mainMenu();
         System.out.println("退出系统");
@@ -54,6 +57,10 @@ public class qqview {
                                     service.onlineFriendList();
                                     break;
                                 case "2":
+                                    System.out.print("请输入想对大家说的话");
+                                    String content2 = new Scanner(System.in).next();
+                                    //编写一个方法，将消息发送给服务器端
+                                    messageClientService.sendMessageToAll(content2,userid);
                                     System.out.println("群发消息");
                                     break;
                                 case "3":
@@ -66,6 +73,14 @@ public class qqview {
                                     System.out.println("私聊消息");
                                     break;
                                 case "4":
+                                    System.out.println("请输入你想发送的用户");
+                                    String getterID = new Scanner(System.in).next();
+                                    System.out.println("请输入发送路径，例如：d:\\xx.jpg");
+                                    String src  =new Scanner(System.in).next();
+                                    System.out.println("请输入发送到对方的某个路径，例如：d:\\aa.jpg");
+                                    String dest  =new Scanner(System.in).next();
+                                    //调用方法
+                                    fileClientService.sendFileToOne(src,dest,userid,getterID);
                                     System.out.println("发送文件");
                                     break;
                                 case "9" :

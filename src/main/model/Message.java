@@ -9,10 +9,48 @@ public class Message implements Serializable {
     private static final long serialVersionUID = 1L;
     private String sender;//发送者
     private String reciever;
+
+    public byte[] getFileByte() {
+        return fileByte;
+    }
+
+    public void setFileByte(byte[] fileByte) {
+        this.fileByte = fileByte;
+    }
+
+    public int getFileLen() {
+        return fileLen;
+    }
+
+    public void setFileLen(int fileLen) {
+        this.fileLen = fileLen;
+    }
+
+    public String getDest() {
+        return dest;
+    }
+
+    public void setDest(String dest) {
+        this.dest = dest;
+    }
+
+    public String getSrc() {
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
+    }
+
     private String content;
     private String sendTime;
     private String messageType;
 
+    //再次拓展消息
+    private byte[] fileByte;
+    private int fileLen = 0;
+    private String dest;//目标文件路径
+    private String src;//源目标路径
 
     public String getMessageType() {
         return messageType;

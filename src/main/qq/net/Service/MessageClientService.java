@@ -24,5 +24,16 @@ public class MessageClientService {
         ObjectOutputStream oos = new ObjectOutputStream(MangerClientConnectServerThread.getCliientConnectServerThread(senderID).getSocket().getOutputStream());
         oos.writeObject(message);
     }
+    public void sendMessageToAll(String content,String senderID) throws IOException {
+        Message message = new Message();
+        message.setContent(content);
+        message.setSender(senderID);
+        message.setMessageType(MessqgeType.MESSAGE_CLIENT_TOALL);//普通聊天消息
+        message.setSendTime(new Date().toString());//发送时间
+        System.out.println(senderID+"对大家说"+content);
+        //发送给服务端
+        ObjectOutputStream oos = new ObjectOutputStream(MangerClientConnectServerThread.getCliientConnectServerThread(senderID).getSocket().getOutputStream());
+        oos.writeObject(message);
+    }
 
 }
