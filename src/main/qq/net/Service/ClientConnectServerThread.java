@@ -3,6 +3,7 @@ package main.qq.net.Service;
 import main.model.Message;
 import main.model.MessqgeType;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
@@ -20,9 +21,11 @@ public class ClientConnectServerThread extends Thread{
     public void run(){
         //因为我们这个线程需要在后台和服务器通讯，因此我们while循环
         while (true){
-            //一直要读取服务器端的消息
-            System.out.println("客户端线程等待读取从服务返回的消息");
             try {
+                //一直要读取服务器端的消息
+                System.out.println("客户端线程等待读取从服务返回的消息");
+                //如果前端系统选择退出系统，客户端向服务端发送了一个message信息，服务端关闭了socket，
+                //而客户端没有得到消息，还在读取信息
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                  //如果服务器没有发送Object对象 ，该线程堵塞
                 Message message =(Message) ois.readObject();
@@ -37,12 +40,19 @@ public class ClientConnectServerThread extends Thread{
                     for (int i=0;i<onlineUser.length;i++){
                         System.out.println("用户"+onlineUser[i]);
                     }
-
-                }else {
+                }else if (message.getMessageType().equals(MessqgeType.MESSAGE_COMM_MES)){
+                    //接收到普通的聊天消息，把服务器端转发的消息显示到控制端
+                    System.out.println("\n"+message.getSender()+"对"+
+                            message.getReciever()+"说"+message.getContent());
+                }
+                else {
                     System.out.println("其他类型的message暂不处理");
                 }
+            }catch (EOFException eofException){
+                break;
             } catch (IOException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
+
+                e.printStackTrace();
             }
         }
     }

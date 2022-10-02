@@ -1,5 +1,6 @@
 package main.qqClient.View;
 
+import main.qq.net.Service.MessageClientService;
 import main.qq.net.Service.UserClientService;
 
 import java.io.IOException;
@@ -10,7 +11,8 @@ public class qqview {
     private String key = "";
     //用于登陆服务和注册服务
     private UserClientService service = new UserClientService();
-
+    //聊天方法
+    private MessageClientService messageClientService = new MessageClientService();
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         new qqview().mainMenu();
         System.out.println("退出系统");
@@ -55,10 +57,16 @@ public class qqview {
                                     System.out.println("群发消息");
                                     break;
                                 case "3":
+                                    System.out.print("请输入想聊天的用户好（在线的）");
+                                    String recieverID = new Scanner(System.in).next();
+                                    System.out.println("请输入私聊信息");
+                                    String content = new Scanner(System.in).next();
+                                    //编写一个方法，将消息发送给服务器端
+                                    messageClientService.toMessage(content,userid,recieverID);
                                     System.out.println("私聊消息");
                                     break;
                                 case "4":
-                                    System.out.println("退出系统");
+                                    System.out.println("发送文件");
                                     break;
                                 case "9" :
                                     System.out.println("退出系统");

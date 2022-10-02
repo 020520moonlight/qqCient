@@ -67,16 +67,23 @@ public class UserClientService {
         oos.writeObject(message);//发送信息向服务端获得在线用户列表
     }
     //编写方法退出服务端，并给系统发送一个退出系统的message对象
-    public void logout() throws IOException {
+    public void logout()  {
         Message message = new Message();
         message.setMessageType(MessqgeType.MESSAGE_CLIENT_EXIT);
         message.setSender(user.getUserId());
         //获得对象输出流，输出message对象
         //new ObjectOutputStream(socket.getOutputStream());
-        ObjectOutputStream oos =
-        new ObjectOutputStream(MangerClientConnectServerThread.getCliientConnectServerThread(user.getUserId()).getSocket().getOutputStream());
-        oos.writeObject(message);
-        System.out.println(user.getUserId()+"退出了系统");
-        System.exit(0);
+        try {
+            ObjectOutputStream oos =
+                    new ObjectOutputStream(MangerClientConnectServerThread.getCliientConnectServerThread(user.getUserId()).getSocket().getOutputStream());
+            oos.writeObject(message);
+            System.out.println(user.getUserId()+"退出了系统");
+            socket.shutdownOutput();
+            System.exit(0);//结束进程
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
+
+
 }
